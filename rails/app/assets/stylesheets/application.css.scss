@@ -10,7 +10,60 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
- *= require _bootstrap
+ = require _bootstrap
  *= require_tree .
  *= require_self
  */
+
+/*Buttons*/
+
+.button:hover{
+	background: #93c9df;
+}
+
+.btn.btn-default{
+	background: #df93c9;
+	color: white;
+}
+
+/*Container*/
+
+.well{
+    background: #93c9df;
+    color: white;
+}
+
+.container-fluid{
+	background: #df93c9;
+	font-color: white;
+}
+
+/*Font*/
+
+.editquestion{
+	color: white;
+}
+
+h1{
+	color: #d5f29d;
+	text-align: center;
+}
+
+/*Nav Bar*/
+
+.navbar-default .navbar-brand {
+    color: white;
+}
+
+/*Form*/
+
+.form-control{
+	background: #93c9df;	
+}
+
+/*Alert*/
+
+.alert.alert-info{
+	background: #d5f29d;
+	color: black;
+}

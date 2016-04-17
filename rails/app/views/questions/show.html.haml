@@ -6,6 +6,6 @@
 
     = form_for :answer, url: answer_question_path(@question) do |f|
       .form-group
-        = f.text_field :answer, class: 'form-control'
+        = f.text_field :answer, class: 'form-control', :align => 'right', :name =>"Answer"
 
       = f.submit "Submit answer", class: 'btn btn-default'

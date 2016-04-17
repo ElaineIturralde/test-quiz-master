@@ -1,12 +1,20 @@
 .container
-  %h1 Choose a question!
+  %h1 Choose a Question
+  
+  %div{"ng-controller" => "changecolorCtrl"}
+    = link_to "Add a new question", new_question_path, :required => true, :class => "btn btn-default", style: "float:right;"
+    .input-group-btn
+      %button.btn.btn-default{:type => "button", 'ng-click' => "red()"} Red
+      %button.btn.btn-default{:type => "button", 'ng-click' => "violet()"} Violet 
+      %button.btn.btn-default{:type => "button", 'ng-click' => "green()"} Green
+      %button.btn.btn-default{:type => "button", 'ng-click' => "pink()"} Pink
+      %button.btn.btn-default{:type => "button", 'ng-click' => "black()"} Black
+    .well
+      .list-group
+        - @questions.each do |question|
+          .list-group
+            .question
+              = link_to question.question, question, :class => "list-group-item button",style: "color:{{color}}"
+              = link_to "Edit the question", edit_question_path(question), :class => "editquestion", style: "float:right;"
 
-  .well
-    %ul
-      - @questions.each do |question|
-        %li
-          = link_to question.question, question
-          %span.small
-            (#{link_to "edit", edit_question_path(question)})
-
-  = link_to "Add a new question", new_question_path
+ 

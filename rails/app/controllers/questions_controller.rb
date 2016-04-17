@@ -11,8 +11,10 @@ class QuestionsController < ApplicationController
 
   def create
     @question = Question.new question_params
-    if @question.save
-      redirect_to root_path, notice: 'Question created successfully.'
+    if @question.answer.empty? || @question.question.empty?
+      redirect_to :back, notice: 'Input was not saved because question and/or answer were/was empty.'
+    elsif @question.save
+      render '/questions/answer.html.haml', {question: @question}
     else
       render :new
     end
@@ -27,16 +29,40 @@ class QuestionsController < ApplicationController
   end
 
   def answer
-    # TODO
+    @answer = find_question.answer
+    if is_empty? params
+      redirect_to :back, notice: 'Input is blank. Please give an answer.'
+    elsif(right_answer(@answer))
+      redirect_to root_path, notice: 'You have input the right answer!'
+    else
+      redirect_to root_path, notice: 'You have input the wrong answer.'
+    end
   end
 
   private
 
-  def find_question
-    @question = Question.find(params[:id])
-  end
+    def is_empty? params
+      params["Answer"].empty?
+    end
 
-  def question_params
-    params.require(:question).permit(:question, :answer)
-  end
+    def right_answer answer
+      require 'numbers_in_words'
+      input = params["Answer"].to_s.downcase.strip.gsub(/\s+/, '')
+      if(is_a_number(input))
+        input = NumbersInWords.in_words(input).gsub("and ", "").gsub(/\s+/, '')
+      end
+      answer == input
+    end
+
+    def is_a_number answer
+      true if Float(answer) rescue false
+    end
+
+    def find_question
+      @question = Question.find(params[:id])
+    end
+
+    def question_params
+      params.require(:question).permit(:question, :answer)
+    end
 end

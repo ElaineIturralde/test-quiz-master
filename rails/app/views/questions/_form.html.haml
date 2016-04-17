@@ -5,12 +5,12 @@
       - @question.errors.full_messages.each do |message|
         .message= message
 
-  .form-group
-    = f.label :question
-    = f.text_field :question, class: 'form-control'
+  .well
+    .form-group.form-header
+      = f.label :question
+      = f.text_field :question, class: 'form-control'
+    .form-group.form-header
+      = f.label :answer
+      = f.text_field :answer, class: 'form-control'
 
-  .form-group
-    = f.label :answer
-    = f.text_field :answer, class: 'form-control'
-
-  = f.submit nil, class: 'btn btn-primary'
+  = f.submit "Submit", class: 'btn btn-default'
